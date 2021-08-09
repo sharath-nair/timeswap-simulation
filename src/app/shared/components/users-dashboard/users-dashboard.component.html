@@ -1,0 +1,34 @@
+<div class="pool-init-form">
+  <mat-table [dataSource]="usersDatasource"
+             matSort>
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef
+                         mat-sort-header>User</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <span class="name">{{ row.username }}</span>
+          <span class="admin-label"
+                *ngIf="row.is_admin">(Admin)</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef
+                         mat-sort-header>Email Address</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <span class="email">{{ row.email }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="last-active">
+        <mat-header-cell *matHeaderCellDef
+                         mat-sort-header>Last Active</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.last_login ? (row.last_login | date: 'd MMM yyyy') : 'Never logged in' }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Header and Row Declarations -->
+      <mat-header-row *matHeaderRowDef="userColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: userColumns"></mat-row>
+    </mat-table>
+</div>
