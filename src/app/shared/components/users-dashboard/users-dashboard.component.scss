@@ -1,0 +1,25 @@
+
+:host {
+  width: inherit;
+
+  .user-dashboard {
+    width: inherit;
+
+    .mat-table {
+      .mat-header-cell {
+        padding-right: 5px;
+      }
+
+      .mat-cell {
+        overflow: visible;
+        padding-right: 5px;
+
+        .user-info-btn {
+          .fa-info-circle {
+            font-size: 20px;
+          }
+        }
+      }
+    }
+  }
+}

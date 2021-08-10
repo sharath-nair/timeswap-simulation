@@ -1,34 +1,60 @@
-<div class="pool-init-form">
-  <mat-table [dataSource]="usersDatasource"
-             matSort>
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef
-                         mat-sort-header>User</mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          <span class="name">{{ row.username }}</span>
-          <span class="admin-label"
-                *ngIf="row.is_admin">(Admin)</span>
-        </mat-cell>
-      </ng-container>
+<div class="user-dashboard">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Users Dashboard</mat-card-title>
+    </mat-card-header>
 
-      <ng-container matColumnDef="email">
-        <mat-header-cell *matHeaderCellDef
-                         mat-sort-header>Email Address</mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          <span class="email">{{ row.email }}</span>
-        </mat-cell>
-      </ng-container>
+    <mat-card-content>
+      <mat-table [dataSource]="usersDatasource"
+                 matSort>
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef
+                          mat-sort-header>User</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <span class="name">{{ row.name }}</span>
+          </mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="last-active">
-        <mat-header-cell *matHeaderCellDef
-                         mat-sort-header>Last Active</mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          {{ row.last_login ? (row.last_login | date: 'd MMM yyyy') : 'Never logged in' }}
-        </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="assets">
+          <mat-header-cell *matHeaderCellDef
+                          mat-sort-header>Assets</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <span class="assets">{{ row.assetCount }}</span>
+          </mat-cell>
+        </ng-container>
 
-      <!-- Header and Row Declarations -->
-      <mat-header-row *matHeaderRowDef="userColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: userColumns"></mat-row>
-    </mat-table>
+        <ng-container matColumnDef="collaterals">
+          <mat-header-cell *matHeaderCellDef
+                          mat-sort-header>Collaterals</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.collateralCount }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="mint-action">
+          <mat-header-cell *matHeaderCellDef
+                          mat-sort-header>Mint</mat-header-cell>
+          <mat-cell *matCellDef="let row"><button mat-raised-button color="primary">Mint</button>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="info">
+          <mat-header-cell *matHeaderCellDef
+                          mat-sort-header>Info</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <button mat-mini-fab class="user-info-btn" color="primary" aria-label="User Info">
+              <i class="fa fa-info-circle"></i>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Header and Row Declarations -->
+        <mat-header-row *matHeaderRowDef="userColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: userColumns"></mat-row>
+      </mat-table>
+
+      <div class="mt-3 d-flex">
+        <button mat-raised-button color="primary" (click)="addUser()">Add User</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
 </div>

@@ -1,0 +1,79 @@
+<div class="tx-dashboard">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Transactions Dashboard</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="d-flex h-100 w-100">
+        <div class="input-container">
+          <mat-form-field appearance="outline">
+            <mat-label>Transaction Type</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let txType of transactionTypes" [value]="txType">{{txType}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="input-container ms-3 tx-user">
+          <mat-form-field appearance="outline">
+            <mat-label>User</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let user of users" [value]="user?.name">{{user?.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="input-container w-50 ms-3">
+          <mat-form-field  class="w-100" appearance="outline">
+            <mat-label>Date</mat-label>
+            <input matInput
+                  [matDatepicker]="initDatePicker"
+                  formControlName="initializationDate" />
+            <mat-datepicker-toggle matSuffix
+                                  [for]="initDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #initDatePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="input-container ms-3">
+          <mat-form-field class="w-100"
+                          appearance="outline">
+            <mat-label>Asset</mat-label>
+            <input type="text"
+                    matInput
+                    placeholder="Asset name"
+                    formControlName="asset" />
+          </mat-form-field>
+        </div>
+
+        <div class="input-container w-50 ms-3">
+          <mat-form-field class="w-100"
+                          appearance="outline">
+            <mat-label>Collateral</mat-label>
+            <input type="text"
+                    matInput
+                    placeholder="Collateral name"
+                    formControlName="collateral" />
+          </mat-form-field>
+        </div>
+
+        <div class="input-container w-50 ms-3">
+          <mat-form-field class="w-100"
+                          appearance="outline">
+            <mat-label>Token pair price</mat-label>
+            <input type="text"
+                    matInput
+                    placeholder="Pair"
+                    formControlName="pairPrice" />
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <div class="mt-3 d-flex">
+      <button mat-raised-button color="primary">Add Transaction</button>
+      <button mat-raised-button class="ms-3" color="primary">Execute Transactions</button>
+    </div>
+  </mat-card>
+</div>

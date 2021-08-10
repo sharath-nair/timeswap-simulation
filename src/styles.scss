@@ -11,3 +11,9 @@
 .d-flex {
   display: flex;
 }
+
+.mat-card {
+  .mat-card-header-text {
+    margin: 0;
+  }
+}

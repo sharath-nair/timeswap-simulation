@@ -9,6 +9,7 @@ import { SharedMatModule } from './shared-mat.module';
 
 import { PoolInitComponent } from './components/pool-init/pool-init.component';
 import { UsersDashboardComponent } from './components/users-dashboard/users-dashboard.component';
+import { TransactionDashboardComponent } from './components/transaction-dashboard/transaction-dashboard.component';
 
 const SHARED_MODULES: any[] = [
   // FormsModule,
@@ -22,7 +23,8 @@ const SHARED_MODULES: any[] = [
 
 const SHARED_COMPONENTS: any[] = [
   PoolInitComponent,
-  UsersDashboardComponent
+  UsersDashboardComponent,
+  TransactionDashboardComponent
 ];
 
 /**
