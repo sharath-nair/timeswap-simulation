@@ -1,33 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { take } from 'rxjs/internal/operators/take';
+import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 
 import { User } from '@app/core/models/user.model';
 import { CommonService } from '@app/core/services/common.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-users-dashboard',
   templateUrl: './users-dashboard.component.html',
   styleUrls: ['./users-dashboard.component.scss']
 })
-export class UsersDashboardComponent implements OnInit {
+export class UsersDashboardComponent implements OnInit, OnDestroy {
   users: User[];
   usersDatasource: MatTableDataSource<User> = new MatTableDataSource([]);
+
+  private destroy$ = new Subject();
 
   constructor(private commonService: CommonService) { }
 
   ngOnInit(): void {
-    this.commonService.getUsers().pipe(take(1)).subscribe(users => {
+    this.commonService.usersList.pipe(takeUntil(this.destroy$)).subscribe(users => {
       this.users = users;
       this.usersDatasource.data = this.users;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.unsubscribe;
   }
 
   userColumns = ['name', 'assets', 'collaterals', 'mint-action', 'info'];
 
   public addUser() {
     this.users.push({ name: 'New User', assetCount: 1234, collateralCount: 100 });
-    this.usersDatasource.data = this.users;
+    this.commonService.usersList.next(this.users);
   }
 }

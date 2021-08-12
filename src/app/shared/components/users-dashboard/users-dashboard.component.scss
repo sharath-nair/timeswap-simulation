@@ -5,6 +5,11 @@
   .user-dashboard {
     width: inherit;
 
+    .mat-card {
+      max-height: 460px;
+      overflow: auto;
+    }
+
     .mat-table {
       .mat-header-cell {
         padding-right: 5px;
