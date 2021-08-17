@@ -29,20 +29,18 @@
           <mat-cell *matCellDef="let row"> {{ row.collateralCount }} </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="mint-input">
+          <mat-header-cell *matHeaderCellDef
+                          mat-sort-header>Amount to mint</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <input type="number" class="me-2" placeholder="Enter amount">
+          </mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="mint-action">
           <mat-header-cell *matHeaderCellDef
                           mat-sort-header>Mint</mat-header-cell>
           <mat-cell *matCellDef="let row"><button mat-raised-button color="primary">Mint</button>
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="info">
-          <mat-header-cell *matHeaderCellDef
-                          mat-sort-header>Info</mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            <button mat-mini-fab class="user-info-btn" color="primary" aria-label="User Info">
-              <i class="fa fa-info-circle"></i>
-            </button>
           </mat-cell>
         </ng-container>
 

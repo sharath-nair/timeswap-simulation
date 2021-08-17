@@ -1,1 +1,1 @@
-export const transactionTypes = ['Borrower', 'Lender', 'Liquidity Provider', 'Liquidity Withdrawer'];
+export const transactionTypes = ['Borrow', 'Repay', 'Lend', 'Withdraw', 'Provide Liquidity', 'Withdraw Liquidity'];

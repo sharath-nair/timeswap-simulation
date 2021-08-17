@@ -32,10 +32,10 @@ export class UsersDashboardComponent implements OnInit, OnDestroy {
     this.destroy$.unsubscribe;
   }
 
-  userColumns = ['name', 'assets', 'collaterals', 'mint-action', 'info'];
+  userColumns = ['name', 'assets', 'collaterals', 'mint-input', 'mint-action'];
 
   public addUser() {
-    this.users.push({ name: 'New User', assetCount: 1234, collateralCount: 100 });
+    this.users.push({ name: `User ${this.users.length + 1}`, assetCount: 1234, collateralCount: 100 });
     this.commonService.usersList.next(this.users);
   }
 }
