@@ -5,144 +5,137 @@
     </mat-card-header>
 
     <mat-card-content>
-      <div class="d-flex h-100 w-100">
-        <div class="input-container w-50 me-2">
-          <mat-form-field class="w-100"
-                          appearance="outline">
-            <mat-label>Asset to be lent</mat-label>
-            <input type="text"
-                    matInput
-                    required
-                    placeholder="Asset name"
-                    formControlName="assetToBeLent" />
-          </mat-form-field>
-        </div>
-        <div class="input-container w-50 ms-2">
-          <mat-form-field class="w-100"
-                          appearance="outline">
-            <mat-label>Asset as collateral</mat-label>
-            <input type="text"
-                    matInput
-                    required
-                    placeholder="Collateral name"
-                    formControlName="assetCollateral" />
-          </mat-form-field>
-        </div>
-      </div>
-
-      <div class="d-flex h-100 w-100">
-        <div class="input-container w-50 me-2">
-          <mat-form-field class="w-100"
-                          appearance="outline">
-            <mat-label>Add asset</mat-label>
-            <input type="number"
-                    matInput
-                    placeholder="Amount"
-                    formControlName="assetValue" />
-          </mat-form-field>
-        </div>
-        <div class="input-container w-50 ms-2">
-          <mat-form-field class="w-100"
-                          appearance="outline">
-            <mat-label>Expected Interest Rate %</mat-label>
-            <input type="number"
-                    matInput
-                    placeholder="Interest Rate value"
-                    formControlName="interestRate" />
-          </mat-form-field>
-        </div>
-      </div>
-
-      <div class="d-flex h-100 w-100">
-        <div class="input-container w-50 me-2">
-          <mat-form-field  class="w-100" appearance="outline">
-            <mat-label>Initialization date</mat-label>
-            <input matInput
-                  [matDatepicker]="initDatePicker"
-                  formControlName="initializationDate" />
-            <mat-datepicker-toggle matSuffix
-                                  [for]="initDatePicker"></mat-datepicker-toggle>
-            <mat-datepicker #initDatePicker></mat-datepicker>
-          </mat-form-field>
+      <form [formGroup]="poolInitForm"
+            (ngSubmit)="onSubmit()">
+        <div class="d-flex h-100 w-100">
+          <div class="input-container w-50 me-2">
+            <mat-form-field class="w-100"
+                            appearance="outline">
+              <mat-label>Asset</mat-label>
+              <input type="text"
+                      matInput
+                      required
+                      placeholder="Asset name"
+                      formControlName="asset" />
+            </mat-form-field>
+          </div>
+          <div class="input-container w-50 ms-2">
+            <mat-form-field class="w-100"
+                            appearance="outline">
+              <mat-label>Collateral</mat-label>
+              <input type="text"
+                      matInput
+                      required
+                      placeholder="Collateral name"
+                      formControlName="collateral" />
+            </mat-form-field>
+          </div>
         </div>
 
-        <div class="input-container w-50 ms-2">
-          <mat-form-field  class="w-100" appearance="outline">
-            <mat-label>Maturity date</mat-label>
-            <input matInput
-                [matDatepicker]="maturityDatePicker"
-                formControlName="maturityDate" />
-            <mat-datepicker-toggle matSuffix
-                                [for]="maturityDatePicker"></mat-datepicker-toggle>
-            <mat-datepicker #maturityDatePicker></mat-datepicker>
-          </mat-form-field>
+        <div class="d-flex h-100 w-100">
+          <div class="input-container w-50 me-2">
+            <mat-form-field class="w-100"
+                            appearance="outline">
+              <mat-label>Add asset</mat-label>
+              <input type="number"
+                      matInput
+                      placeholder="Amount"
+                      formControlName="assetValue" />
+            </mat-form-field>
+          </div>
+          <div class="input-container w-50 ms-2">
+            <mat-form-field class="w-100"
+                            appearance="outline">
+              <mat-label>Expected Interest Rate %</mat-label>
+              <input type="number"
+                      matInput
+                      placeholder="Interest Rate value"
+                      formControlName="interestRate" />
+            </mat-form-field>
+          </div>
         </div>
-      </div>
 
-      <div class="d-flex h-100 w-100">
-        <div class="input-container w-50 me-2">
-          <mat-form-field class="w-100"
-                          appearance="outline">
-            <mat-label>Expected exchange price </mat-label>
-            <input type="number"
-                    matInput
-                    placeholder="Price at maturity"
-                    formControlName="exchPriceAtMaturity" />
-          </mat-form-field>
-        </div>
-        <div class="input-container w-50 me-2 ms-2">
-          <mat-form-field class="w-100"
-                          appearance="outline">
-            <mat-label>Protocol fees (bps)</mat-label>
-            <input type="number"
-                    matInput
-                    formControlName="protocolFees" />
-          </mat-form-field>
-        </div>
-        <div class="input-container w-50 ms-2">
-          <mat-form-field class="w-100"
-                          appearance="outline">
-            <mat-label>Transaction fees (bps)</mat-label>
-            <input type="number"
-                    matInput
-                    formControlName="transactionFees" />
-          </mat-form-field>
-        </div>
-      </div>
+        <div class="d-flex h-100 w-100">
+          <div class="input-container w-50 me-2">
+            <mat-form-field  class="w-100" appearance="outline">
+              <mat-label>Initialization date</mat-label>
+              <input matInput required type="datetime-local" formControlName="initDate">
+            </mat-form-field>
+          </div>
 
-      <div class="d-flex h-100 w-100">
-        <div class="input-container w-50 me-2">
-          <mat-form-field class="w-100"
-                          appearance="outline">
-            <mat-label>ETH locked </mat-label>
-            <input type="number"
-                    matInput
-                    formControlName="EthLocked" />
-          </mat-form-field>
+          <div class="input-container w-50 ms-2">
+            <mat-form-field  class="w-100" appearance="outline">
+              <mat-label>Maturity date</mat-label>
+              <input matInput required type="datetime-local" formControlName="maturityDate">
+            </mat-form-field>
+          </div>
         </div>
-        <div class="input-container w-50 me-2 ms-2">
-          <mat-form-field class="w-100"
-                          appearance="outline">
-            <mat-label>Insurance tokens</mat-label>
-            <input type="number"
-                    matInput
-                    formControlName="insuranceTokens" />
-          </mat-form-field>
-        </div>
-        <div class="input-container w-50 ms-2">
-          <mat-form-field class="w-100"
-                          appearance="outline">
-            <mat-label>Bond tokens</mat-label>
-            <input type="number"
-                    matInput
-                    formControlName="bondTokens" />
-          </mat-form-field>
-        </div>
-      </div>
 
-      <div>
-        <button mat-raised-button color="primary">Simulate</button>
-      </div>
+        <div class="d-flex h-100 w-100">
+          <div class="input-container w-50 me-2">
+            <mat-form-field class="w-100"
+                            appearance="outline">
+              <mat-label>Expected Collateral Factor </mat-label>
+              <input type="number"
+                      matInput
+                      placeholder="Collateral Factor"
+                      formControlName="expCollateralFactor" />
+            </mat-form-field>
+          </div>
+          <div class="input-container w-50 me-2 ms-2">
+            <mat-form-field class="w-100"
+                            appearance="outline">
+              <mat-label>Protocol fees (bps)</mat-label>
+              <input type="number"
+                      matInput
+                      formControlName="protocolFees" />
+            </mat-form-field>
+          </div>
+          <div class="input-container w-50 ms-2">
+            <mat-form-field class="w-100"
+                            appearance="outline">
+              <mat-label>Transaction fees (bps)</mat-label>
+              <input type="number"
+                      matInput
+                      formControlName="transactionFees" />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="d-flex h-100 w-100">
+          <div class="input-container w-50 me-2">
+            <mat-form-field class="w-100"
+                            appearance="outline">
+              <mat-label>Insurance tokens</mat-label>
+              <input type="number"
+                      matInput
+                      formControlName="insuranceTokens" />
+            </mat-form-field>
+          </div>
+          <div class="input-container w-50 me-2 ms-2">
+            <mat-form-field class="w-100"
+                            appearance="outline">
+              <mat-label>Bond tokens</mat-label>
+              <input type="number"
+                      matInput
+                      formControlName="bondTokens" />
+            </mat-form-field>
+          </div>
+          <div class="input-container w-50 ms-2">
+            <mat-form-field class="w-100"
+                            appearance="outline">
+              <mat-label>Liquidity tokens</mat-label>
+              <input type="number"
+                      matInput
+                      formControlName="liquidityTokens" />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div>
+          <button mat-raised-button color="primary">Initialize</button>
+        </div>
+      </form>
     </mat-card-content>
   </mat-card>
 </div>

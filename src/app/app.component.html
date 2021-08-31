@@ -19,11 +19,11 @@
   </div>
 
   <div class="d-flex w-100">
-    <app-pool-init class="me-4"></app-pool-init>
+    <app-pool-init class="me-4" (poolInitEvent)="onPoolInit($event)"></app-pool-init>
     <app-users-dashboard></app-users-dashboard>
   </div>
 
-  <div class="d-flex w-100 mt-3">
+  <div class="d-flex w-100 mt-4">
     <app-transaction-dashboard class="w-100"></app-transaction-dashboard>
   </div>
 </div>

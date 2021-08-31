@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { Subject } from 'rxjs/internal/Subject';
+import { Subject } from 'rxjs';
+
 import { User } from '@app/core/models/user.model';
 import { BehaviorSubject } from 'rxjs';
 
@@ -16,4 +17,6 @@ const mockUserData: User[] = [
 export class CommonService {
   displayErrorMsg = new Subject<string>();
   usersList = new BehaviorSubject<User[]>(mockUserData);
+  asset = new BehaviorSubject<string>(null);
+  collateral = new BehaviorSubject<string>(null);
 }

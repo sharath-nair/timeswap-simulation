@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { takeUntil } from 'rxjs/internal/operators/takeUntil';
+import { takeUntil } from 'rxjs/operators';
 
 import { transactionTypes } from '@app/core/config/app.config';
 import { User } from '@app/core/models/user.model';
@@ -13,18 +13,27 @@ import { Subject } from 'rxjs';
   styleUrls: ['./transaction-dashboard.component.scss']
 })
 export class TransactionDashboardComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<null>();
+
   public transactionTypes = transactionTypes;
   public users: User[];
   public txList = [1, 2, 3];
-
-  private destroy$ = new Subject<null>();
+  public assetName: string;
+  public collateralName: string;
 
   constructor(private commonService: CommonService) {}
 
   ngOnInit(): void {
     this.commonService.usersList.pipe(takeUntil(this.destroy$)).subscribe(users => {
       this.users = users;
-      console.log(users);
+    });
+
+    this.commonService.asset.pipe(takeUntil(this.destroy$)).subscribe(asset => {
+      this.assetName = asset;
+    });
+
+    this.commonService.collateral.pipe(takeUntil(this.destroy$)).subscribe(collateral => {
+      this.collateralName = collateral;
     });
   }
 

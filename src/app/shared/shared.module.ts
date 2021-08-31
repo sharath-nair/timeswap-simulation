@@ -1,8 +1,7 @@
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { SharedMatModule } from './shared-mat.module';
@@ -10,21 +9,21 @@ import { SharedMatModule } from './shared-mat.module';
 import { PoolInitComponent } from './components/pool-init/pool-init.component';
 import { UsersDashboardComponent } from './components/users-dashboard/users-dashboard.component';
 import { TransactionDashboardComponent } from './components/transaction-dashboard/transaction-dashboard.component';
+import { TransactionRowComponent } from './components/transaction-row/transaction-row.component';
 
 const SHARED_MODULES: any[] = [
-  // FormsModule,
-  // ReactiveFormsModule,
+  ReactiveFormsModule,
   CommonModule,
   SharedMatModule,
   OverlayModule,
-  DragDropModule,
   RouterModule,
 ];
 
 const SHARED_COMPONENTS: any[] = [
   PoolInitComponent,
   UsersDashboardComponent,
-  TransactionDashboardComponent
+  TransactionDashboardComponent,
+  TransactionRowComponent
 ];
 
 /**

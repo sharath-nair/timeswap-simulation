@@ -1,0 +1,79 @@
+<div class="tx-row d-flex h-100 w-100">
+  <div class="input-container w-50 me-3">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Date</mat-label>
+      <input #txDate matInput type="datetime-local" placeholder="Tx date" min="{{minDate}}" (blur)="onDateBlur(txDate?.value)">
+    </mat-form-field>
+  </div>
+
+  <div class="input-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Transaction Type</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let txType of transactionTypes" [value]="txType">{{txType}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="input-container ms-3 tx-user">
+    <mat-form-field appearance="outline">
+      <mat-label>User</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let user of users" [value]="user?.name">{{user?.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- <div class="input-container w-50 ms-3">
+    <mat-form-field  class="w-100" appearance="outline">
+      <mat-label>Date</mat-label>
+      <input matInput
+            [matDatepicker]="initDatePicker"
+            formControlName="initializationDate" />
+      <mat-datepicker-toggle matSuffix
+                            [for]="initDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #initDatePicker></mat-datepicker>
+    </mat-form-field>
+  </div> -->
+
+  <div class="input-container ms-3">
+    <mat-form-field class="w-100"
+                    appearance="outline">
+      <mat-label>{{ assetName || 'Asset' }}</mat-label>
+      <input type="text"
+              matInput
+              placeholder="Asset name" />
+    </mat-form-field>
+  </div>
+
+  <div class="input-container ms-3">
+    <mat-form-field class="w-100"
+                    appearance="outline">
+      <mat-label>{{ collateralName || 'Collateral' }}</mat-label>
+      <input type="text"
+              matInput
+              placeholder="Collateral name" />
+    </mat-form-field>
+  </div>
+
+  <div class="input-container ms-3">
+    <mat-form-field class="w-100"
+                    appearance="outline">
+      <mat-label>Token pair price</mat-label>
+      <input type="text"
+              matInput
+              placeholder="Pair" />
+    </mat-form-field>
+  </div>
+
+  <div class="input-container ms-3">
+    <button mat-mini-fab class="tx-info-btn mt-2" color="primary" aria-label="User Info">
+      <i class="fa fa-info-circle"></i>
+    </button>
+  </div>
+  <div class="input-container ms-3">
+    <button mat-mini-fab class="tx-info-btn mt-2" color="primary" aria-label="User Info" matTooltip="Execute" matTooltipPosition="above">
+      <i class="fa fa-arrow-right"></i>
+    </button>
+  </div>
+</div>

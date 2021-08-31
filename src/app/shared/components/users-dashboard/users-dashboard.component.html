@@ -17,7 +17,7 @@
 
         <ng-container matColumnDef="assets">
           <mat-header-cell *matHeaderCellDef
-                          mat-sort-header>Assets</mat-header-cell>
+                          mat-sort-header>{{ assetName || 'Assets' }}</mat-header-cell>
           <mat-cell *matCellDef="let row">
             <span class="assets">{{ row.assetCount }}</span>
           </mat-cell>
@@ -25,7 +25,7 @@
 
         <ng-container matColumnDef="collaterals">
           <mat-header-cell *matHeaderCellDef
-                          mat-sort-header>Collaterals</mat-header-cell>
+                          mat-sort-header>{{ collateralName || 'Collaterals' }}</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{ row.collateralCount }} </mat-cell>
         </ng-container>
 
@@ -33,7 +33,7 @@
           <mat-header-cell *matHeaderCellDef
                           mat-sort-header>Amount to mint</mat-header-cell>
           <mat-cell *matCellDef="let row">
-            <input type="number" class="me-2" placeholder="Enter amount">
+            <input type="number" class="me-2" placeholder="Enter amount" value="10000">
           </mat-cell>
         </ng-container>
 
