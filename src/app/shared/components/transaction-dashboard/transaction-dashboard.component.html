@@ -5,15 +5,19 @@
     </mat-card-header>
 
     <mat-card-content>
-      <app-transaction-row *ngFor="let tx of txList"
+      <app-transaction-row *ngFor="let tx of txList; let i = index"
                            [users]="users"
                            [assetName]="assetName"
-                           [collateralName]="collateralName"></app-transaction-row>
+                           [collateralName]="collateralName"
+                           [txDetails]="tx"
+                           (removeTransaction)="removeTransaction($event)"
+                           (executeTransaction)="onExecuteTransaction(i)"></app-transaction-row>
     </mat-card-content>
 
     <div class="mt-3 d-flex">
       <button mat-raised-button color="primary" (click)="addTransaction()">Add Transaction</button>
       <button mat-raised-button class="ms-3" color="primary">Execute Transactions</button>
+      <button mat-raised-button class="ms-3" color="primary">Withdraw Liquidity</button>
     </div>
   </mat-card>
 </div>

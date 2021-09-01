@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 
+import { BehaviorSubject } from 'rxjs';
 import { Subject } from 'rxjs';
 
+import { AppState } from '@app/core/models/app-state.model';
 import { User } from '@app/core/models/user.model';
-import { BehaviorSubject } from 'rxjs';
 
 const mockUserData: User[] = [
   { name: 'User 1', assetCount: 121, collateralCount: 11},
@@ -19,4 +20,5 @@ export class CommonService {
   usersList = new BehaviorSubject<User[]>(mockUserData);
   asset = new BehaviorSubject<string>(null);
   collateral = new BehaviorSubject<string>(null);
+  appState: AppState = {};
 }

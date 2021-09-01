@@ -11,6 +11,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   exports: [
@@ -24,7 +25,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTableModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSliderModule
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTableModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSliderModule
   ],
 })
 export class SharedMatModule {}

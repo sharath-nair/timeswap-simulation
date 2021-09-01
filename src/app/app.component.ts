@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
-import { Pool } from './core/models/pool.model';
+import { Pool } from '@app/core/models/pool.model';
+import { CommonService } from '@app/core/services/common.service';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +13,11 @@ export class AppComponent {
   isPoolInitialized = false;
   poolDetails: Pool;
 
+  constructor(private commonService: CommonService) {}
+
   onPoolInit(poolDetails: any) {
     this.poolDetails = poolDetails;
     this.isPoolInitialized = true;
+    this.commonService.appState.poolInfo = this.poolDetails;
   }
 }

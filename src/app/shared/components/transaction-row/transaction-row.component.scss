@@ -1,0 +1,28 @@
+.tx-row {
+  .input-container {
+    &.size-sm {
+      max-width: 140px;
+
+      ::ng-deep .mat-form-field-infix {
+        width: 110px;
+      }
+    }
+
+    &.slider-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .mat-slider {
+        width: 150px;
+      }
+    }
+  }
+
+  .tx-info-btn {
+    .fa-info-circle {
+      font-size: 20px;
+    }
+  }
+}

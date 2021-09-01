@@ -1,79 +1,140 @@
-<div class="tx-row d-flex h-100 w-100">
-  <div class="input-container w-50 me-3">
-    <mat-form-field class="w-100" appearance="outline">
-      <mat-label>Date</mat-label>
-      <input #txDate matInput type="datetime-local" placeholder="Tx date" min="{{minDate}}" (blur)="onDateBlur(txDate?.value)">
-    </mat-form-field>
-  </div>
+<form [formGroup]="transactionForm"
+            (ngSubmit)="onExecuteClick()">
+  <div class="tx-row d-flex h-100 w-100">
+    <div class="input-container me-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Date</mat-label>
+        <input #txDate
+               matInput
+               type="datetime-local"
+               placeholder="Tx date"
+               min="{{minDate}}"
+               formControlName="date"
+               (blur)="onDateBlur(txDate?.value)">
+      </mat-form-field>
+    </div>
 
-  <div class="input-container">
-    <mat-form-field appearance="outline">
-      <mat-label>Transaction Type</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let txType of transactionTypes" [value]="txType">{{txType}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+    <div class="input-container tx-user size-sm">
+      <mat-form-field appearance="outline">
+        <mat-label>User</mat-label>
+        <mat-select formControlName="user">
+          <mat-option *ngFor="let user of users" [value]="user?.name">{{user?.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-  <div class="input-container ms-3 tx-user">
-    <mat-form-field appearance="outline">
-      <mat-label>User</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let user of users" [value]="user?.name">{{user?.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+    <div class="input-container ms-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Transaction Type</mat-label>
+        <mat-select formControlName="txType" (selectionChange)="onTxTypeChange($event)">
+          <mat-option *ngFor="let txType of transactionTypes" [value]="txType">{{txType}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-  <!-- <div class="input-container w-50 ms-3">
-    <mat-form-field  class="w-100" appearance="outline">
-      <mat-label>Date</mat-label>
-      <input matInput
-            [matDatepicker]="initDatePicker"
-            formControlName="initializationDate" />
-      <mat-datepicker-toggle matSuffix
-                            [for]="initDatePicker"></mat-datepicker-toggle>
-      <mat-datepicker #initDatePicker></mat-datepicker>
-    </mat-form-field>
-  </div> -->
+    <div class="input-container ms-3" *ngIf="txDetails?.txType !== txType.Withdraw && txDetails?.txType !== txType.RemoveLiquidity">
+      <mat-form-field class="w-100"
+                      appearance="outline">
+        <mat-label>{{ assetName || 'Asset' }} to {{ txDetails?.txType }}</mat-label>
+        <input type="number"
+                matInput
+                placeholder="Enter amount"
+                formControlName="assetVal" />
+      </mat-form-field>
+    </div>
 
-  <div class="input-container ms-3">
-    <mat-form-field class="w-100"
-                    appearance="outline">
-      <mat-label>{{ assetName || 'Asset' }}</mat-label>
-      <input type="text"
-              matInput
-              placeholder="Asset name" />
-    </mat-form-field>
-  </div>
+    <div class="input-container ms-3" *ngIf="txDetails?.txType === txType.Borrow">
+      <mat-form-field class="w-100"
+                      appearance="outline">
+        <mat-label>{{ collateralName || 'Collateral' }} to lock</mat-label>
+        <input type="number"
+               matInput
+               placeholder="Collateral value"
+               formControlName="collateralVal" />
+      </mat-form-field>
+    </div>
 
-  <div class="input-container ms-3">
-    <mat-form-field class="w-100"
-                    appearance="outline">
-      <mat-label>{{ collateralName || 'Collateral' }}</mat-label>
-      <input type="text"
-              matInput
-              placeholder="Collateral name" />
-    </mat-form-field>
-  </div>
+    <div class="input-container slider-container ms-3" *ngIf="txDetails?.txType === txType.Borrow || txDetails?.txType === txType.Lend">
+      <label>Customize Risk</label>
+      <mat-slider thumbLabel color="primary" aria-label="unit(s)"></mat-slider>
+    </div>
 
-  <div class="input-container ms-3">
-    <mat-form-field class="w-100"
-                    appearance="outline">
-      <mat-label>Token pair price</mat-label>
-      <input type="text"
-              matInput
-              placeholder="Pair" />
-    </mat-form-field>
-  </div>
+    <div class="input-container ms-3 size-sm" *ngIf="txDetails?.txType === txType.Borrow || txDetails?.txType === txType.Lend">
+      <mat-form-field class="w-100"
+                      appearance="outline">
+        <mat-label>APR</mat-label>
+        <input type="number"
+                matInput
+                disabled />
+      </mat-form-field>
+    </div>
 
-  <div class="input-container ms-3">
-    <button mat-mini-fab class="tx-info-btn mt-2" color="primary" aria-label="User Info">
-      <i class="fa fa-info-circle"></i>
-    </button>
+    <div class="input-container ms-3 size-sm" *ngIf="txDetails?.txType === txType.Borrow || txDetails?.txType === txType.Lend">
+      <mat-form-field class="w-100"
+                      appearance="outline">
+        <mat-label>Collateral Factor</mat-label>
+        <input type="number"
+                matInput
+                disabled />
+      </mat-form-field>
+    </div>
+
+    <div class="input-container ms-3" *ngIf="txDetails?.txType === txType.Withdraw || txDetails?.txType === txType.RemoveLiquidity">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Asset Withdrawn</mat-label>
+        <input type="number"
+                matInput
+                disabled />
+      </mat-form-field>
+    </div>
+
+    <div class="input-container ms-3"
+         *ngIf="txDetails?.txType === txType.Withdraw || txDetails?.txType === txType.RemoveLiquidity || txDetails?.txType === txType.Repay">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Collateral {{ txDetails?.txType === txType.Repay ? 'Unlocked' : 'Withdrawn'}}</mat-label>
+        <input type="number"
+                matInput
+                disabled />
+      </mat-form-field>
+    </div>
+
+    <div class="input-container ms-3 size-sm">
+      <mat-form-field class="w-100"
+                      appearance="outline">
+        <mat-label>Token pair price</mat-label>
+        <input type="text"
+                matInput
+                placeholder="Enter price"
+                formControlName="tokenPairPrice" />
+      </mat-form-field>
+    </div>
+
+    <div class="btn-container d-flex ms-auto ps-3">
+      <button mat-mini-fab
+              class="tx-info-btn mt-2 me-3"
+              type="button"
+              color="warn"
+              aria-label="Remove Tx"
+              matTooltip="Remove"
+              matTooltipPosition="above"
+              (click)="onRemoveTxClick()">
+        <i class="fa fa-trash"></i>
+      </button>
+
+      <button mat-mini-fab class="tx-info-btn mt-2" type="button" color="primary" aria-label="User Info">
+        <i class="fa fa-info-circle"></i>
+      </button>
+
+      <button mat-mini-fab
+              class="tx-info-btn mt-2 ms-3"
+              type="submit"
+              color="primary"
+              aria-label="Execute Tx"
+              matTooltip="Execute"
+              matTooltipPosition="above"
+              [disabled]="!txDetails?.isExecutable">
+        <i class="fa fa-arrow-right"></i>
+      </button>
+    </div>
   </div>
-  <div class="input-container ms-3">
-    <button mat-mini-fab class="tx-info-btn mt-2" color="primary" aria-label="User Info" matTooltip="Execute" matTooltipPosition="above">
-      <i class="fa fa-arrow-right"></i>
-    </button>
-  </div>
-</div>
+</form>

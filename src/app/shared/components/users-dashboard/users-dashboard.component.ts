@@ -17,6 +17,7 @@ export class UsersDashboardComponent implements OnInit, OnDestroy {
   usersDatasource: MatTableDataSource<User> = new MatTableDataSource([]);
   assetName: string;
   collateralName: string;
+  userColumns = ['name', 'assets', 'collaterals', 'mint-input', 'mint-action'];
 
   private destroy$ = new Subject();
 
@@ -39,13 +40,12 @@ export class UsersDashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy$.next();
-    this.destroy$.unsubscribe;
+    this.destroy$.unsubscribe();
   }
-
-  userColumns = ['name', 'assets', 'collaterals', 'mint-input', 'mint-action'];
 
   public addUser() {
     this.users.push({ name: `User ${this.users.length + 1}`, assetCount: 1234, collateralCount: 100 });
     this.commonService.usersList.next(this.users);
+    this.commonService.appState.users = this.users;
   }
 }

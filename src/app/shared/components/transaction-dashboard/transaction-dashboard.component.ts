@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 import { transactionTypes } from '@app/core/config/app.config';
 import { User } from '@app/core/models/user.model';
 import { CommonService } from '@app/core/services/common.service';
-import { Subject } from 'rxjs';
+import { Transaction } from '@app/core/models/transaction.model';
 
 @Component({
   selector: 'app-transaction-dashboard',
@@ -17,7 +18,7 @@ export class TransactionDashboardComponent implements OnInit, OnDestroy {
 
   public transactionTypes = transactionTypes;
   public users: User[];
-  public txList = [1, 2, 3];
+  public txList: Transaction[] = [];
   public assetName: string;
   public collateralName: string;
 
@@ -43,6 +44,31 @@ export class TransactionDashboardComponent implements OnInit, OnDestroy {
   }
 
   addTransaction(): void {
-    this.txList.push(1);
+    let newTx: Transaction = {};
+
+    if (this.txList.length) {
+      const lastTx = this.txList[this.txList.length - 1];
+      newTx.id = lastTx.id + 1;
+      newTx.isExecutable = lastTx.hasBeenExecuted;
+    } else {
+      newTx = {id: 1, isExecutable: true};
+    }
+
+    this.txList.push(newTx);
+  }
+
+  removeTransaction(id: number): void {
+    const index = this.txList.findIndex(tx => tx.id === id);
+
+    if (index >= 0) {
+      this.txList.splice(index, 1);
+    }
+  }
+
+  onExecuteTransaction(index: number): void {
+    if (this.txList[index].hasBeenExecuted && this.txList[index + 1]) {
+      this.txList[index + 1].isExecutable = true;
+      this.commonService.appState.transactions = this.txList.filter(tx => tx.hasBeenExecuted);
+    }
   }
 }
